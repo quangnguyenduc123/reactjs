@@ -3,6 +3,7 @@ import Card from '../UI/Card'
 import classes from './Users.module.css'
 
 const Users = props => {
+    console.log('abc')
     return (
         <Card className={classes.users}>
             <ul>
