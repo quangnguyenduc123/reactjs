@@ -1,52 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import Button from './components/UI/Button/Button'
 
-import NewExpense from './components/NewExpense/NewExpense';
-import Expenses from './components/Expenses/Expenses';
+import './App.css';
+import DemoOutput from './components/Demo/DemoOutput';
 
-const DUMMY_EXPENSES = [
-  {
-    id: 'e1',
-    title: 'Toilet Paper',
-    amount: 94.12,
-    date: new Date(2020, 7, 14),
-  },
-  { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
-  {
-    id: 'e3',
-    title: 'Car Insurance',
-    amount: 294.67,
-    date: new Date(2021, 2, 28),
-  },
-  {
-    id: 'e4',
-    title: 'New Desk (Wooden)',
-    amount: 450,
-    date: new Date(2021, 5, 12),
-  },
-];
+function App() {
+  const [showParagraph, setShowParagraph] = useState(false)
+  const [allowToggle, setAllowToggle] = useState(false)
 
-const App = () => {
-  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+  console.log('APP RUNNING')
 
-  const addExpenseHandler = (expense) => {
-    setExpenses((prevExpenses) => {
-      return [expense, ...prevExpenses];
-    });
-  };
+  const toggleParagraphHandler = useCallback(() => {
+    if (allowToggle) {
+      setShowParagraph((prevShowParagraph) => {
+        return !prevShowParagraph
+      })
+    }
+  }, [allowToggle])
 
-  // return React.createElement(
-  //   'div',
-  //   {},
-  //   React.createElement('h2', {}, "Let's get started!"),
-  //   React.createElement(Expenses, { items: expenses })
-  // );
-
+  const allowToggleHandler = () => {
+    setAllowToggle(!allowToggle)
+  }
   return (
-    <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
+    <div className="app">
+      <h1>Hi there!</h1>
+      <DemoOutput show={showParagraph}></DemoOutput>
+      <Button onClick={allowToggleHandler}> Allow toggle</Button>
+      <Button onClick={toggleParagraphHandler}> Show Paragraph</Button>
     </div>
   );
-};
+}
 
 export default App;
